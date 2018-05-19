@@ -9,10 +9,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
-
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 public class myDBUtil {
 	private static DataSource ds = null;
