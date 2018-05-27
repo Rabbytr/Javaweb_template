@@ -9,10 +9,13 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.dbutils.QueryRunner;
+
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 public class myDBUtil {
 	private static DataSource ds = null;
+	private static QueryRunner qr = null;
 	
 	static {
 		Properties prop = new Properties();
@@ -20,6 +23,7 @@ public class myDBUtil {
 			InputStream is = myDBUtil.class.getClassLoader().getResourceAsStream("config.properties");
 			prop.load(is);
 			ds = DruidDataSourceFactory.createDataSource(prop);
+			qr = new QueryRunner(ds);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -27,6 +31,10 @@ public class myDBUtil {
 	
 	public static DataSource getDataSource() {
 		return ds;
+	}
+	
+	public static QueryRunner getQueryRunner() {
+		return qr;
 	}
 	
 	public static Connection getConnection() {
