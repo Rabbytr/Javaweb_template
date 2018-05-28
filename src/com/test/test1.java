@@ -1,30 +1,28 @@
 package com.test;
 
-import com.jdbc.dao.IUserDao;
-import com.jdbc.dao.impl.UserDaoImpl;
-import com.jdbc.domain.User;
+import com.util.SHAencrypt;
 
 public class test1 {
 
 	public static void main(String[] args) {
-		User user = new User();
-		user.setPhonenumber("999");
-		user.setPassword("777");
+		String pString = "9";
 		
-		IUserDao dao = new UserDaoImpl();
-		dao.save(user);
+		try {
+			System.out.println(SHAencrypt.getResult(pString));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+
+//		User user = new User();
+//		
+//		user.setPhonenumber("123");
+//		user.setPassword("456");
+//		
+//		
+//		IUserDao dao = new UserDaoImpl();
+//		dao.save(user);
 		
-		
-		
-//		QueryRunner qr = new QueryRunner(myDBUtil.getDataSource());
-//		//String sql = "update users set password=? where id=?";
-//		try {
-//			User user = qr.query("select * from user where phonenumber = ?",new BeanHandler<User>(User.class),"14786661616");
-//			    System.out.println(user.getPhonenumber());
-//			    System.out.println(user.getPassword());
-//		} catch (SQLException e) {
-//			e.printStackTrace(); 
-//		}
 	}
 }

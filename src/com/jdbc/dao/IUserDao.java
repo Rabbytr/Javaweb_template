@@ -10,5 +10,6 @@ public interface IUserDao {
 	void delete(int id);
 	
 	User get(int id);
+	int getId(String phonenum,String password);
 	List<User> getAll(); 
 }
