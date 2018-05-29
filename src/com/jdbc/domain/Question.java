@@ -4,6 +4,8 @@ public class Question {
 	private long qid;
 	private long uid;
 	private String content;
+	private String date;
+
 	public long getQid() {
 		return qid;
 	}
@@ -21,5 +23,11 @@ public class Question {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
 	}
 }

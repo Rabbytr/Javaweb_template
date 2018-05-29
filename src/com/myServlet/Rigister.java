@@ -32,9 +32,9 @@ public class Rigister extends HttpServlet {
 			user.setPassword(SHAencrypt.getResult(pwd1)); //加密
 			IUserDao iUserDao = new UserDaoImpl();
 			iUserDao.save(user);
-			response.getWriter().print("1");
+			response.getWriter().print("ok");
 		}else {
-			response.getWriter().print("0");
+			response.getWriter().print("no");
 		}
 		
 	}

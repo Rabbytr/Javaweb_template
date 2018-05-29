@@ -25,14 +25,15 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String phonenum = request.getParameter("phonenumber");
 		String pwd = request.getParameter("password");
+		System.out.println(phonenum+"尝试登录");
 		IUserDao iUserDao = new UserDaoImpl();
 		int id = iUserDao.getId(phonenum, SHAencrypt.getResult(pwd));
 		if(id>0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("uid", id);
-			response.getWriter().print("1");
+			response.getWriter().print("ok");
 		}else {
-			response.getWriter().print("0");
+			response.getWriter().print("no");
 		}
 	}
 
