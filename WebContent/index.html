@@ -5,9 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<script type="text/javascript" src='./static/js/jquery.js'></script>
+	<script type="text/javascript" src='./static/js/bootstrap.min.js'></script>
+	<script type="text/javascript" src='./static/js/index.js'></script>
 
 	<link type="text/css" rel="stylesheet" href="./static/css/bootstrap.min.css" />
-	<script type="text/javascript" src='./static/js/bootstrap.min.js'></script>
 	<link type="text/css" rel="stylesheet" href="./static/css/index.css" />
 	<title>逼乎-发现更大的世界</title>
 </head>
@@ -36,12 +37,12 @@
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="搜索你感兴趣的内容...">
 						</div>
-						<button type="submit" class="btn-search">Submit</button>
+						<button type="submit" class="btn-blue">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#">Link</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户名<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">Action</a></li>
 								<li><a href="#">Another action</a></li>
@@ -70,12 +71,16 @@
 				</div>
 			</div>
 			<!-- 一张卡片 end -->
-			<div class="card">
-				问题区
-			</div>
+
 
 		</div>
 		<div id="info-container" class="col-md-4">
+			<div class="card">
+				<button id="putquestion" class="btn btn-link" type="button" name="button">提问</button>
+			</div>
+			<div class="card">
+				<button id="putquestion" class="btn btn-link" type="button" name="button">回答</button>
+			</div>
 			<div class="card">
 				<p>刘看山·逼乎指南·知乎协议·隐私政策</p>
 				<p>应用工作·申请开通逼乎机构号</p>
@@ -83,6 +88,31 @@
 				<p>违法和不良信息举报：010-82716601</p>
 				<p>儿童色情信息举报专区</p>
 				<p>联系我们 © 2018 逼乎</p>
+			</div>
+		</div>
+
+	  <!-- 弹出框 -->
+		<div class="modal-wrapper">
+			<div class="modal">
+				<div class="modal-title">
+					写下你的问题
+				</div>
+				<div class="modal-subtitle">
+					描述精确的问题更易得到解答
+				</div>
+				<div class="modal-form">
+					<div class="form-wrapper">
+						<textarea class="form-control" rows="2" placeholder="问题标题"></textarea>
+					</div>
+					<div class="form-wrapper">
+						<textarea class="form-control" rows="6" placeholder="问题描述"></textarea>
+					</div>
+					<div class="form-wrapper">
+						<button class="btn-blue" type="button" name="button">提交问题</button>
+
+					</div>
+
+				</div>
 			</div>
 		</div>
 
