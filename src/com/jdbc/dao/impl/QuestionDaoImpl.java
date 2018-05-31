@@ -16,9 +16,9 @@ public class QuestionDaoImpl implements IQuestionDao{
 
 	@Override
 	public void save(Question question) {
-		String sql = "insert into question(uid,content,date) values(?,?,?)";
+		String sql = "insert into question(uid,title,content,date) values(?,?,?,?)";
 		try {
-			qr.update(sql,question.getUid(),question.getContent(),question.getDate());
+			qr.update(sql,question.getUid(),question.getTitle(),question.getContent(),question.getDate());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
