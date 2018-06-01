@@ -17,28 +17,28 @@ public class UserDaoImpl implements IUserDao{
 	
 	@Override
 	public void save(User user) {
-		String sql = "insert into User(phonenumber,password) values(?,?)";
+		String sql = "insert into User(phonenumber,password,username) values(?,?,?)";
 		try {
-			qr.update(sql,user.getPhonenumber(),user.getPassword());
+			qr.update(sql,user.getPhonenumber(),user.getPassword(),user.getUsername());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void update(int id,User user) {
+	public void update(long id,User user) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(long id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public User get(int id) {
+	public User get(long id) {
 		String sql = "select * from user where id=?";
 		try {
 			User user = qr.query(sql,new BeanHandler<User>(User.class),id);

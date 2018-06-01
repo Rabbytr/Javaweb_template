@@ -1,7 +1,6 @@
 package com.myServlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +26,7 @@ public class Login extends HttpServlet {
 		String pwd = request.getParameter("password");
 		System.out.println(phonenum+"尝试登录");
 		IUserDao iUserDao = new UserDaoImpl();
-		int id = iUserDao.getId(phonenum, SHAencrypt.getResult(pwd));
+		long id = iUserDao.getId(phonenum, SHAencrypt.getResult(pwd));
 		if(id>0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("uid", id);

@@ -1,6 +1,7 @@
 package com.myServlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,34 +11,33 @@ import javax.servlet.http.HttpServletResponse;
 import com.jdbc.dao.IUserDao;
 import com.jdbc.dao.impl.UserDaoImpl;
 import com.jdbc.domain.User;
-import com.util.SHAencrypt;
 
-@WebServlet("/Rigister")
-public class Rigister extends HttpServlet {
+@WebServlet("/GetUserInfo")
+public class GetUserInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public Rigister() {
+    public GetUserInfo() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String phonenum = request.getParameter("phonenumber");
-		String pwd1 = request.getParameter("password");
-		String pwd2 = request.getParameter("rpassword");
-		System.out.println(pwd1);
-		if(pwd1.equals(pwd2)) {
-			//服务端检测数据有效性
-			User user = new User();
-			user.setPhonenumber(phonenum);
-			user.setPassword(SHAencrypt.getResult(pwd1)); //加密
-			user.setUsername("tmp-Username");
-			IUserDao iUserDao = new UserDaoImpl();
-			iUserDao.save(user);
-			response.getWriter().print("ok");
+		response.setContentType("application/json");
+		if(request.getSession().getAttribute("uid")==null) {
+			System.out.println("未登录");
+			response.getWriter().print("{\"state\":\"no\"}");
 		}else {
-			response.getWriter().print("no");
+			try {
+				long uid = (long) request.getSession().getAttribute("uid");
+				System.out.println(uid);
+				IUserDao iUserDao = new UserDaoImpl();
+				User user = iUserDao.get(uid);
+				System.out.println(user.getUsername());
+				response.getWriter().print("{\"state\":\"ok\",\"username\":\""+user.getUsername()+"\"}");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

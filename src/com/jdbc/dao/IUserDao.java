@@ -6,10 +6,10 @@ import com.jdbc.domain.User;
 
 public interface IUserDao {
 	void save(User user);
-	void update(int id,User user);
-	void delete(int id);
+	void update(long id,User user);
+	void delete(long id);
 	
-	User get(int id);
+	User get(long id);
 	int getId(String phonenum,String password);
 	List<User> getAll(); 
 }

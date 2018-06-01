@@ -12,7 +12,6 @@ $(document).ready(function(){
     type: "POST",   //请求方式
     success: function(data) {
     //请求成功时处理
-    	window.data = data;
     	console.log(data);
       if(data.trim()=='ok'){
         alert('登录成功');
