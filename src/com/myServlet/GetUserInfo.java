@@ -23,6 +23,7 @@ public class GetUserInfo extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		if(request.getSession().getAttribute("uid")==null) {
 			System.out.println("未登录");
 			response.getWriter().print("{\"state\":\"no\"}");

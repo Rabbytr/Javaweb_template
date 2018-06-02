@@ -31,10 +31,10 @@ $(document).ready(function(){
   $('#login-btn').click(login);
   //注册
   function rigister(){
+    var username = $('#rigister-username').val();
     var phonenumber = $('#rigister-phonenumber').val();
     var password = $('#rigister-password').val();
-    var rpassword = $('#rigister-rpassword').val();
-    var data = {"phonenumber":phonenumber,"password":password,"rpassword":rpassword};
+    var data = {"username":username,"phonenumber":phonenumber,"password":password};
     $.ajax({
     url: "/Jweb_template/Rigister",    //请求的url地址
     dataType: "text",   //返回格式为json

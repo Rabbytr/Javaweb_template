@@ -16,28 +16,23 @@ import com.util.SHAencrypt;
 public class Rigister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public Rigister() {
-        super();
-    }
+	public Rigister() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
 		String phonenum = request.getParameter("phonenumber");
-		String pwd1 = request.getParameter("password");
-		String pwd2 = request.getParameter("rpassword");
-		System.out.println(pwd1);
-		if(pwd1.equals(pwd2)) {
-			//服务端检测数据有效性
-			User user = new User();
-			user.setPhonenumber(phonenum);
-			user.setPassword(SHAencrypt.getResult(pwd1)); //加密
-			user.setUsername("tmp-Username");
-			IUserDao iUserDao = new UserDaoImpl();
-			iUserDao.save(user);
-			response.getWriter().print("ok");
-		}else {
-			response.getWriter().print("no");
-		}
-		
+		String pwd = request.getParameter("password");
+		System.out.println(pwd);
+		//服务端检测数据有效性
+		User user = new User();
+		user.setPhonenumber(phonenum);
+		user.setPassword(SHAencrypt.getResult(pwd)); //加密
+		user.setUsername(username);
+		IUserDao iUserDao = new UserDaoImpl();
+		iUserDao.save(user);
+		response.getWriter().print("ok");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

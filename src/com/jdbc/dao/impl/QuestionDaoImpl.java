@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import com.jdbc.dao.IQuestionDao;
@@ -36,12 +37,36 @@ public class QuestionDaoImpl implements IQuestionDao{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public Map<String, Object> getByQid(long qid) {
+		String sql = "select * from question where qid = ?";
+		try {
+			Map<String, Object> r = qr.query(sql,new MapHandler(),qid);
+			return r;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public List<Map<String, Object>> getByUid(long uid) {
 		String sql = "select * from question where uid = ?";
 		try {
 			List<Map<String, Object>> r = qr.query(sql,new MapListHandler(),uid);
+			return r;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getTopTen() {
+		String sql = "select * from question order by date desc limit 10";
+		try {
+			List<Map<String, Object>> r = qr.query(sql,new MapListHandler());
 			return r;
 		} catch (SQLException e) {
 			e.printStackTrace();

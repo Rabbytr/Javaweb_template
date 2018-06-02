@@ -2,13 +2,6 @@ body{
   font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
   background-color: #f6f6f6;
 }
-/* #question-container{
-background-color: #fff;
-border: 1px solid;
-}
-#info-container{
-background-color: #fff;
-} */
 
 .btn-blue{
   display: inline-block;
@@ -76,6 +69,10 @@ background-color: #fff;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+}
+.question-content{
+  font-size: 15px;
+  color: #111111;
 }
 .most-anwser{
   font-size: 15px;
@@ -155,6 +152,7 @@ text-align: center;
 .form-wrapper{
   margin-bottom: 30px;
 }
+
 
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
   color: #0084ff;

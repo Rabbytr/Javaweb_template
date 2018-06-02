@@ -1,19 +1,24 @@
 package com.test;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
-import com.jdbc.dao.IQuestionDao;
-import com.jdbc.dao.impl.QuestionDaoImpl;
+import com.jdbc.dao.IAnswerDao;
+import com.jdbc.dao.impl.AnswerDaoImpl;
+import com.jdbc.domain.Answer;
 
 public class test1 {
 
 	public static void main(String[] args) {
 		
-		IQuestionDao iQuestionDao = new QuestionDaoImpl();
-		
-		List<Map<String, Object>> list = iQuestionDao.getByUid(123);
-		for(Map<String, Object> map:list) System.out.println(map);
+		IAnswerDao iAnswerDao = new AnswerDaoImpl();
+		Answer answer = new Answer();
+		answer.setQid(1);
+		answer.setUid(1);
+		answer.setContent("凤姐");
+		answer.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).toString());
+		iAnswerDao.save(answer);
 		
 //		Question question = new Question();
 //		question.setUid(123);

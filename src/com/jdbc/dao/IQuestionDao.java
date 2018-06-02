@@ -10,5 +10,7 @@ public interface IQuestionDao {
 	void update(long qid,Question question);
 	void delete(long qid);
 	
+	Map<String, Object> getByQid(long qid);
 	List<Map<String, Object>> getByUid(long uid);
+	List<Map<String, Object>> getTopTen();
 }
