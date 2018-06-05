@@ -3,13 +3,12 @@ $(document).ready(function(){
   // 获取用户信息
   function islogin(){
     $.ajax({
-      url: "/Jweb_template/GetUserInfo",    //请求的url地址
+      url: "/Jweb_template/GetUserInfo",
       dataType: "json",   //返回格式为json
       async: false, //请求是否异步
       data: null,    //参数值
       type: "POST",   //请求方式
       success: function(data) {
-        //请求成功时处理
         window.data = data;
         if(data.state.trim()=='ok'){
           $('#username').html(data.username);
@@ -31,8 +30,8 @@ $(document).ready(function(){
     var content = $('#answer-content').val();
     data = {"content":content};
     $.ajax({
-      url: "/Jweb_template/AnswerPublish",    //请求的url地址
-      dataType: "text",   //返回格式为json
+      url: "/Jweb_template/AnswerPublish",
+      dataType: "text",
       async: true, //请求是否异步
       data: data,    //参数值
       type: "POST",   //请求方式
@@ -53,6 +52,55 @@ $(document).ready(function(){
     });
   });
   // end 提交答案
+
+  // 点赞
+  function star(){
+    var aid = $(this).val();
+    data = {"aid":aid,"flag":false};
+    $.ajax({
+      url: "/Jweb_template/Starfun",    //请求的url地址
+      dataType: "json",
+      async: true, //请求是否异步
+      data: data,    //参数值
+      type: "POST",   //请求方式
+      success: function(data) {
+        if(data.state.trim()=='ok'){
+          location.reload();
+        }else {
+          alert('你已经点过赞了');
+        }
+      },
+      complete: function() {
+      },
+      error: function() {
+      }
+    });
+  }
+  function unstar(){
+    var aid = $(this).val();
+    data = {"aid":aid,"flag":true};
+    $.ajax({
+      url: "/Jweb_template/Starfun",    //请求的url地址
+      dataType: "json",
+      async: true, //请求是否异步
+      data: data,    //参数值
+      type: "POST",   //请求方式
+      success: function(data) {
+        if(data.state.trim()=='ok'){
+          location.reload();
+        }else {
+          alert('你还没点过赞');
+        }
+      },
+      complete: function() {
+      },
+      error: function() {
+      }
+    });
+  }
+  $('.btn-star').click(star);
+  $('.btn-stared').click(unstar);
+  // end 点赞
 
   //绑定 提问 事件
   $('#putanswer').click(function(){

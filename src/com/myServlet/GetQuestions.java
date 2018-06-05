@@ -14,8 +14,10 @@ import org.json.JSONObject;
 
 import com.jdbc.dao.IAnswerDao;
 import com.jdbc.dao.IQuestionDao;
+import com.jdbc.dao.IStarmapDao;
 import com.jdbc.dao.impl.AnswerDaoImpl;
 import com.jdbc.dao.impl.QuestionDaoImpl;
+import com.jdbc.dao.impl.StarmapDaoImpl;
 
 @WebServlet("/GetQuestions")
 public class GetQuestions extends HttpServlet {
@@ -31,12 +33,18 @@ public class GetQuestions extends HttpServlet {
         /*设置字符集为'UTF-8'*/
         response.setCharacterEncoding("UTF-8");
 		
+        long uid = (long) request.getSession().getAttribute("uid");
 		IQuestionDao iQuestionDao = new QuestionDaoImpl();
 		IAnswerDao iAnswerDao = new AnswerDaoImpl();
+		IStarmapDao iStarmapDao = new StarmapDaoImpl();
 		List<Map<String, Object>> r = iQuestionDao.getTopTen();
 		for(Map<String, Object> map:r) {
 			long qid = (int) map.get("qid");
 			Map<String, Object> answer = iAnswerDao.getByQid(qid);
+			if(answer!=null) {
+				long aid = (int)answer.get("aid");
+				answer.put("stared", iStarmapDao.isStared(uid, aid));
+			}
 			map.put("answer", answer);
 		}
 		JSONObject jsonObject = new JSONObject();
