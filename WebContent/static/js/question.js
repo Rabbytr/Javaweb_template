@@ -55,7 +55,8 @@ $(document).ready(function(){
 
   // 点赞
   function star(){
-    var aid = $(this).val();
+    btn = $(this);
+    var aid = btn.val();
     data = {"aid":aid,"flag":false};
     $.ajax({
       url: "/Jweb_template/Starfun",    //请求的url地址
@@ -65,7 +66,8 @@ $(document).ready(function(){
       type: "POST",   //请求方式
       success: function(data) {
         if(data.state.trim()=='ok'){
-          location.reload();
+          btn.html('赞 '+data.stars).removeClass().addClass('btn-stared');
+          btn.unbind().click(unstar);
         }else {
           alert('你已经点过赞了');
         }
@@ -77,7 +79,8 @@ $(document).ready(function(){
     });
   }
   function unstar(){
-    var aid = $(this).val();
+    btn = $(this);
+    var aid = btn.val();
     data = {"aid":aid,"flag":true};
     $.ajax({
       url: "/Jweb_template/Starfun",    //请求的url地址
@@ -87,7 +90,8 @@ $(document).ready(function(){
       type: "POST",   //请求方式
       success: function(data) {
         if(data.state.trim()=='ok'){
-          location.reload();
+          btn.html('赞 '+data.stars).removeClass().addClass('btn-star');
+          btn.unbind().click(star);
         }else {
           alert('你还没点过赞');
         }

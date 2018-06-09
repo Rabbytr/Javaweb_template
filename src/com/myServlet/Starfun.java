@@ -27,11 +27,11 @@ public class Starfun extends HttpServlet {
 		long aid = Long.parseLong(request.getParameter("aid"));
 		IStarmapDao iStarmapDao = new StarmapDaoImpl();
 		if(!iStarmapDao.isStared(uid, aid)&&flag==false) {
-			iStarmapDao.star(uid, aid);
-			response.getWriter().print("{\"state\":\"ok\"}");
+			int stars = iStarmapDao.star(uid, aid);
+			response.getWriter().print("{\"state\":\"ok\",\"stars\":"+stars+"}");
 		}else if(iStarmapDao.isStared(uid, aid)&&flag==true){
-			iStarmapDao.unstar(uid, aid);
-			response.getWriter().print("{\"state\":\"ok\"}");
+			int stars = iStarmapDao.unstar(uid, aid);
+			response.getWriter().print("{\"state\":\"ok\",\"stars\":"+stars+"}");
 		}else {
 			response.getWriter().print("{\"state\":\"no\"}");
 		}

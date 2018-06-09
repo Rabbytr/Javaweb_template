@@ -13,28 +13,35 @@ public class StarmapDaoImpl implements IStarmapDao{
 	private QueryRunner qr = myDBUtil.getQueryRunner();
 
 	@Override
-	public void star(long uid, long aid) {
+	public int star(long uid, long aid) {
 		String sql1 = "insert into starmap values(?,?)";
 		String sql2 = "update answer set stars = (stars+1) where aid = ?";
+		String sql3 = "select stars from answer where aid = ?";
 		try {
 			qr.update(sql1,uid,aid);
 			qr.update(sql2,aid);
+			int stars = Integer.parseInt(qr.query(sql3, new MapHandler(),aid).get("stars").toString());
+			return stars;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	@Override
-	public void unstar(long uid, long aid) {
+	public int unstar(long uid, long aid) {
 		String sql1 = "delete from starmap where uid = ? and aid = ?";
 		String sql2 = "update answer set stars = (stars-1) where aid = ?";
+		String sql3 = "select stars from answer where aid = ?";
 		try {
 			qr.update(sql1,uid,aid);
 			qr.update(sql2,aid);
+			int stars = Integer.parseInt(qr.query(sql3, new MapHandler(),aid).get("stars").toString());
+			return stars;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		return 0;
 	}
 
 	@Override

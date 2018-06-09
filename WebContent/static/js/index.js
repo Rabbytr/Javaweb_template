@@ -89,7 +89,6 @@ $(document).ready(function(){
       success: function(data) {
         console.log(data);
         if(data.state.trim()=='ok'){
-          alert('点赞成功');
           init();
         }else {
           alert('你已经点过赞了');
@@ -113,7 +112,6 @@ $(document).ready(function(){
       type: "POST",   //请求方式
       success: function(data) {
         if(data.state.trim()=='ok'){
-          alert('取消点赞成功');
           init();
         }else {
           alert('你还没点过赞');

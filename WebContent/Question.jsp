@@ -95,7 +95,7 @@
 		<div class="card">
 			<p class="question-title"><%=question.get("title")%></p>
 			<p class="question-content"><%=question.get("content")%></p>
-			<p class="date-p"><%=question.get("date")%></p>
+			<p class="small-gray"><%=question.get("date")%></p>
 			<button id="putanswer" class="btn-blue">写回答</button>
 		</div>
 		<%
