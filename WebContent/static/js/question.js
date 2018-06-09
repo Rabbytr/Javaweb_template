@@ -59,14 +59,14 @@ $(document).ready(function(){
     var aid = btn.val();
     data = {"aid":aid,"flag":false};
     $.ajax({
-      url: "/Jweb_template/Starfun",    //请求的url地址
+      url: "/Jweb_template/Starfun",    //请求url
       dataType: "json",
       async: true, //请求是否异步
-      data: data,    //参数值
-      type: "POST",   //请求方式
+      data: data,
+      type: "POST",
       success: function(data) {
         if(data.state.trim()=='ok'){
-          btn.html('赞 '+data.stars).removeClass().addClass('btn-stared');
+          btn.html('<span class="glyphicon glyphicon-triangle-bottom"></span> '+data.stars).removeClass().addClass('btn-stared');
           btn.unbind().click(unstar);
         }else {
           alert('你已经点过赞了');
@@ -90,7 +90,7 @@ $(document).ready(function(){
       type: "POST",   //请求方式
       success: function(data) {
         if(data.state.trim()=='ok'){
-          btn.html('赞 '+data.stars).removeClass().addClass('btn-star');
+          btn.html('<span class="glyphicon glyphicon-triangle-top"></span> '+data.stars).removeClass().addClass('btn-star');
           btn.unbind().click(star);
         }else {
           alert('你还没点过赞');

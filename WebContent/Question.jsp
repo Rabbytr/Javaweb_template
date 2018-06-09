@@ -71,18 +71,17 @@
 						<button class="btn-blue">搜索</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Link</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-bell"></span></a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false"> <span id="username"></span> <span
 								class="caret"></span>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-user"></span>  我的主页</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-cog"></span>  设置</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a id="logout">注销</a></li>
+								<li><a id="logout" href="#"><span class="glyphicon glyphicon-off"></span>  注销</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -114,18 +113,17 @@
 				<%
 					if (!iStarmapDao.isStared(guid, (int) answer.get("aid"))) {
 				%>
-				<button class="btn-star" name="button" value=<%=answer.get("aid")%>>赞 <%=answer.get("stars")%></button>
+				<button class="btn-star" name="button" value=<%=answer.get("aid")%>><span class="glyphicon glyphicon-triangle-top"></span> <%=answer.get("stars")%></button>
 				<%
 					} else {
 				%>
-				<button class="btn-stared" name="button" value=<%=answer.get("aid")%>>赞 <%=answer.get("stars")%></button>
+				<button class="btn-stared" name="button" value=<%=answer.get("aid")%>><span class="glyphicon glyphicon-triangle-bottom"></span> <%=answer.get("stars")%></button>
 				<%
 					}
 				%>
-				<button class="btn btn-link" name="button">查看评论</button>
-				<button class="btn btn-link" name="button">添加评论</button>
-				<button class="btn btn-link" name="button">分享</button>
-				<button class="btn btn-link" name="button">收藏</button>
+				<button class="btn btn-link" name="button"><span class="glyphicon glyphicon-comment"></span> 查看评论</button>
+				<button class="btn btn-link" name="button"><span class="glyphicon glyphicon-send"></span> 分享</button>
+				<button class="btn btn-link" name="button"><span class="glyphicon glyphicon-star"></span> 收藏</button>
 			</div>
 		</div>
 		<%

@@ -46,11 +46,11 @@ $(document).ready(function(){
             card.append($('<p>').addClass('small-gray').html(t.answer.date));
             var foot = $('<div>').addClass('question-foot');
             if(!t.answer.stared)
-            foot.append($('<button>').addClass('btn-star').html('赞 '+t.answer.stars).val(t.answer.aid));
-            else foot.append($('<button>').addClass('btn-stared').html('赞 '+t.answer.stars).val(t.answer.aid));
-            foot.append($('<button>').addClass('btn btn-link').html('添加评论'));
-            foot.append($('<button>').addClass('btn btn-link').html('分享'));
-            foot.append($('<button>').addClass('btn btn-link').html('收藏'));
+            foot.append($('<button>').addClass('btn-star').html('<span class="glyphicon glyphicon-triangle-top"></span> '+t.answer.stars).val(t.answer.aid));
+            else foot.append($('<button>').addClass('btn-stared').html('<span class="glyphicon glyphicon-triangle-bottom"></span> '+t.answer.stars).val(t.answer.aid));
+            foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-comment"></span> 添加评论'));
+            foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-send"></span> 分享'));
+            foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-star"></span> 收藏'));
             card.append(foot);
           }else{
             card.append($('<p>').addClass('question-title').html(t.title).val(t.qid));
@@ -70,7 +70,6 @@ $(document).ready(function(){
   // 问题点击事件
   function questionclick(){
     var qid = $(this).val();
-    console.log(qid);
     location.href = "Question/"+qid;
   }
   // end 问题点击事件
@@ -87,7 +86,6 @@ $(document).ready(function(){
       data: data,    //参数值
       type: "POST",   //请求方式
       success: function(data) {
-        console.log(data);
         if(data.state.trim()=='ok'){
           init();
         }else {
@@ -102,7 +100,6 @@ $(document).ready(function(){
   }
   function unstar(){
     var aid = $(this).val();
-    console.log(aid);
     data = {"aid":aid,"flag":true};
     $.ajax({
       url: "/Jweb_template/Starfun",    //请求的url地址
@@ -124,7 +121,7 @@ $(document).ready(function(){
     });
   }
   // end点赞事件
-  
+
   // 问题区初始化
   function init(){
 	  $('#question-container').children().remove();
@@ -149,7 +146,6 @@ $(document).ready(function(){
       data: data,    //参数值
       type: "POST",   //请求方式
       success: function(data) {
-        console.log(data);
         if(data.trim()=='ok'){
           $('.modal-wrapper').hide();
           init();
