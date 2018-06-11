@@ -2,7 +2,7 @@ package com.jdbc.domain;
 
 public class Comment {
 	private long cid;
-	private long qid;
+	private long aid;
 	private long uid;
 	private String content;
 	private String date;
@@ -11,12 +11,6 @@ public class Comment {
 	}
 	public void setCid(long cid) {
 		this.cid = cid;
-	}
-	public long getQid() {
-		return qid;
-	}
-	public void setQid(long qid) {
-		this.qid = qid;
 	}
 	public long getUid() {
 		return uid;
@@ -35,5 +29,11 @@ public class Comment {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public long getAid() {
+		return aid;
+	}
+	public void setAid(long aid) {
+		this.aid = aid;
 	}
 }

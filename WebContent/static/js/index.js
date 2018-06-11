@@ -48,7 +48,7 @@ $(document).ready(function(){
             if(!t.answer.stared)
             foot.append($('<button>').addClass('btn-star').html('<span class="glyphicon glyphicon-triangle-top"></span> '+t.answer.stars).val(t.answer.aid));
             else foot.append($('<button>').addClass('btn-stared').html('<span class="glyphicon glyphicon-triangle-bottom"></span> '+t.answer.stars).val(t.answer.aid));
-            foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-comment"></span> 添加评论'));
+            foot.append($('<button>').addClass('btn btn-link comment-btn').html('<span class="glyphicon glyphicon-comment"></span> 添加评论').val(t.qid));
             foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-send"></span> 分享'));
             foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-star"></span> 收藏'));
             card.append(foot);
@@ -129,6 +129,7 @@ $(document).ready(function(){
 	  $('.btn-star').click(star);
 	  $('.btn-stared').click(unstar);
 	  $('.question-title').click(questionclick);
+    $('.comment-btn').click(questionclick);
   }
   init();
   // end问题区初始化

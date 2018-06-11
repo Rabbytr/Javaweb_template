@@ -121,9 +121,20 @@
 				<%
 					}
 				%>
-				<button class="btn btn-link" name="button"><span class="glyphicon glyphicon-comment"></span> 查看评论</button>
+				<button class="btn btn-link comment-btn" name="button"><span class="glyphicon glyphicon-comment"></span> 查看评论</button>
 				<button class="btn btn-link" name="button"><span class="glyphicon glyphicon-send"></span> 分享</button>
 				<button class="btn btn-link" name="button"><span class="glyphicon glyphicon-star"></span> 收藏</button>
+			</div>
+			<div class="comment-container">
+				<div class="comment-item">
+				</div>
+				<div class="comment-footer">
+					<div class="form-group">
+						<textarea id="comment" class="form-control" rows="3" placeholder="写下你的评论"></textarea>
+					</div>
+					<button type="submit" class="btn-blue" value=<%=answer.get("aid")%>>评论</button>
+				</div>
+
 			</div>
 		</div>
 		<%

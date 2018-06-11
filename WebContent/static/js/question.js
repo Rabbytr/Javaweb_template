@@ -118,6 +118,16 @@ $(document).ready(function(){
   });
   // end 提问 事件
 
+  // 点击评论
+  $('.comment-btn').click(function(){
+    $(this).parent().next().toggle(500);
+  });
+  // end点击评论
+
+  // 发表评论
+
+  // end发表评论
+
   //注销
   function logout(){
     $.get("/Jweb_template/Logout");
