@@ -119,13 +119,73 @@ $(document).ready(function(){
   // end 提问 事件
 
   // 点击评论
+  function getComment(commentbox,aid){
+    var commentcontent = commentbox.children(":first-child");
+    data = {"aid":aid};
+    $.ajax({
+      url: "/Jweb_template/GetComment",
+      dataType: "json",
+      async: true,
+      data: data,
+      type: "POST",
+      success: function(data) {
+        data = data.comments;
+        window.data = data;
+        commentcontent.children().remove();
+        commentcontent.append($('<div>').addClass('comment-item').html('<span class="question-title">'+data.length+'条评论</span>'));
+        for(var i=0;i<data.length;i++){
+          var item = $('<div>').addClass('comment-item');
+          item.append($('<p>').html(data[i].username));
+          item.append($('<p>').addClass('comment-details').html(data[i].content));
+          item.append($('<p>').addClass('small-gray').html(data[i].date));
+          commentcontent.append(item);
+        }
+      },
+      complete: function() {
+      },
+      error: function() {
+      }
+    });
+  }
   $('.comment-btn').click(function(){
-    $(this).parent().next().toggle(500);
+    var commentbox = $(this).parent().next();
+    if(commentbox.is(':hidden')){
+      var aid = $(this).val();
+      getComment(commentbox,aid);
+      $(this).html($(this).html().substring(0,50)+"收起评论");
+    }else{
+      $(this).html($(this).html().substring(0,50)+"查看评论");
+    }
+    commentbox.toggle(500);
   });
   // end点击评论
 
   // 发表评论
-
+  $('.comment-publish').click(function(){
+    var aid = $(this).val();
+    var input = $(this).prev().children();
+    var commentbox = $(this).parent().parent();
+    var content = input.val();
+    var data = {"aid":aid,"content":content};
+    $.ajax({
+      url: "/Jweb_template/CommentPublish",
+      dataType: "text",
+      async: true,
+      data: data,
+      type: "POST",
+      success: function(data) {
+        if(data.trim()=='ok'){
+          getComment(commentbox,aid);
+          alert('评论成功');
+          input.val("");
+        }
+      },
+      complete: function() {
+      },
+      error: function() {
+      }
+    });
+  });
   // end发表评论
 
   //注销

@@ -39,7 +39,7 @@ public class UserDaoImpl implements IUserDao{
 
 	@Override
 	public User get(long id) {
-		String sql = "select * from user where id=?";
+		String sql = "select * from user where uid=?";
 		try {
 			User user = qr.query(sql,new BeanHandler<User>(User.class),id);
 			return user;
@@ -51,10 +51,10 @@ public class UserDaoImpl implements IUserDao{
 	
 	@Override
 	public int getId(String phonenum, String password) {
-		String sql = "select id from user where phonenumber=? and password=?";
+		String sql = "select uid from user where phonenumber=? and password=?";
 		try {
 			Map<String, Object> map = qr.query(sql,new MapHandler(),phonenum,password);
-			return map==null?-1:(int) map.get("id");
+			return map==null?-1:(int) map.get("uid");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
 package com.jdbc.domain;
 
 public class User {
+	private long uid;
 	private String phonenumber;
 	private String password;
 	private String username;
@@ -21,5 +22,11 @@ public class User {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public long getUid() {
+		return uid;
+	}
+	public void setUid(long uid) {
+		this.uid = uid;
 	}
 }
