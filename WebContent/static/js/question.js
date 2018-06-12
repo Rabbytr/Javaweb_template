@@ -136,10 +136,15 @@ $(document).ready(function(){
         for(var i=0;i<data.length;i++){
           var item = $('<div>').addClass('comment-item');
           item.append($('<p>').html(data[i].username));
-          item.append($('<p>').addClass('comment-details').html(data[i].content));
+          item.append($('<p>').addClass('comment-details').html(data[i].content).val(data[i].uid));
           item.append($('<p>').addClass('small-gray').html(data[i].date));
+          // 回复表单
+          var box = $('<div>').addClass('form-group').hide().appendTo(item);
+          $('<textarea>').addClass('form-control').appendTo(box);
+          $('<button>').addClass('btn-blue reply-btn').html('回复').appendTo(box);
           commentcontent.append(item);
         }
+        $('.comment-details').click(replypop);
       },
       complete: function() {
       },
@@ -159,6 +164,13 @@ $(document).ready(function(){
     commentbox.toggle(500);
   });
   // end点击评论
+
+  // 回复窗口
+  function replypop(){
+    var uid = $(this).val();
+    $(this).next().next().toggle(500);
+  }
+  // end回复窗口
 
   // 发表评论
   $('.comment-publish').click(function(){
