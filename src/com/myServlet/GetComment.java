@@ -30,7 +30,7 @@ public class GetComment extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* 设置格式为text/json    */
+		/* 设置格式为text/json */
         response.setContentType("text/json"); 
         /*设置字符集为'UTF-8'*/
         response.setCharacterEncoding("UTF-8");

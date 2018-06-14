@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import com.jdbc.dao.ICommentDao;
@@ -34,6 +35,18 @@ public class CommentDaoImpl implements ICommentDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public long getLastCid() {
+		String sql = "select last_insert_id()";
+		try {
+			long cid = Long.parseLong(qr.query(sql,new MapHandler()).get("last_insert_id()").toString());
+			return cid;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 }

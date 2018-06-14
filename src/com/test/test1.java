@@ -12,12 +12,13 @@ public class test1 {
 	public static void main(String[] args) {
 		
 		ICommentDao iCommentDao = new CommentDaoImpl();
-		Comment comment = new Comment();
-		comment.setAid(123);
-		comment.setUid(456);
-		comment.setContent("fdsaffasfdsa");
-		comment.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).toString());
-		iCommentDao.save(comment);
+//		Comment comment = new Comment();
+//		comment.setAid(123);
+//		comment.setUid(456);
+//		comment.setContent("fdsaffasfdsa");
+//		comment.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).toString());
+//		iCommentDao.save(comment);
+		System.out.println(iCommentDao.getLastCid());
 //		Question question = new Question();
 //		question.setUid(123);
 //		question.setContent("怎么吃饭?");

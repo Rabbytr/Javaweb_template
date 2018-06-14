@@ -178,7 +178,7 @@ $(document).ready(function(){
     var input = $(this).prev().children();
     var commentbox = $(this).parent().parent();
     var content = input.val();
-    var data = {"aid":aid,"content":content};
+    var data = {"aid":aid,"content":content,"cid":null};
     $.ajax({
       url: "/Jweb_template/CommentPublish",
       dataType: "text",

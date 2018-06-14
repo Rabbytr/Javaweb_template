@@ -24,6 +24,7 @@ public class CommentPublish extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long aid = Long.parseLong(request.getParameter("aid"));
+		long replied_cid = request.getParameter("cid") != ""?Long.parseLong(request.getParameter("cid")):-1;
 		String content = request.getParameter("content");
 		long uid = (long) request.getSession().getAttribute("uid");
 		System.out.println(aid+" "+uid+" "+content);
@@ -35,6 +36,12 @@ public class CommentPublish extends HttpServlet {
 		comment.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).toString());
 		ICommentDao iCommentDao = new CommentDaoImpl();
 		iCommentDao.save(comment);
+		
+		if (replied_cid==-1) {
+			long cid = iCommentDao.getLastCid();
+			System.out.println(cid+"回复了"+replied_cid);
+		}
+		
 		response.getWriter().print("ok");
 	}
 

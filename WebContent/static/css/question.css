@@ -41,20 +41,7 @@ body{
   border: 2px solid;
   border-radius: 4px;
 }
-.btn-star:hover{
-  display: inline-block;
-  padding: 0 16px;
-  font-size: 14px;
-  line-height: 30px;
-  background-color: rgba(0,132,255,.35);
-  color: #fff;
-  text-align: center;
-  cursor: pointer;
-  /* background: none; */
-  border: 2px solid;
-  border-radius: 4px;
-  transition: background 0.3s linear;
-}
+
 .btn-stared{
   display: inline-block;
   padding: 0 16px;
@@ -69,18 +56,7 @@ body{
   border-radius: 4px;
   transition: background 0.3s linear;
 }
-.btn-stared:hover{
-  display: inline-block;
-  padding: 0 16px;
-  font-size: 14px;
-  line-height: 30px;
-  color: rgba(0,132,255,.55);
-  text-align: center;
-  cursor: pointer;
-  background: none;
-  border: 2px solid;
-  border-radius: 4px;
-}
+
 .card{
   padding: 16px;
   margin-bottom: 16px;
