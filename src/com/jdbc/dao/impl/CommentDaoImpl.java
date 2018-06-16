@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
@@ -47,6 +48,18 @@ public class CommentDaoImpl implements ICommentDao {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	@Override
+	public Comment getByCid(long cid) {
+		String sql = "select * from comment where cid = ?";
+		try {
+			Comment comment = qr.query(sql, new BeanHandler<Comment>(Comment.class),cid);
+			return comment;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

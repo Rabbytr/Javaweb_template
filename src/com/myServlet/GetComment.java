@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.jdbc.dao.ICommentDao;
+import com.jdbc.dao.IComrepDao;
 import com.jdbc.dao.IUserDao;
 import com.jdbc.dao.impl.CommentDaoImpl;
+import com.jdbc.dao.impl.ComrepDaoImpl;
 import com.jdbc.dao.impl.UserDaoImpl;
+import com.jdbc.domain.Comment;
 import com.jdbc.domain.User;
 
 /**
@@ -38,12 +41,24 @@ public class GetComment extends HttpServlet {
 		long aid = Long.parseLong(request.getParameter("aid"));
 		IUserDao iUserDao = new UserDaoImpl();
 		ICommentDao iCommentDao = new CommentDaoImpl();
+		IComrepDao iComrepDao = new ComrepDaoImpl();
 		List<Map<String, Object>> comments = iCommentDao.getByAid(aid);
 		for(Map<String, Object> comment:comments) {
 			long uid = Long.parseLong(comment.get("uid").toString());
 			User user = iUserDao.get(uid);
 			comment.put("username", user.getUsername());
 			comment.put("uid", user.getUid());
+			
+			long cid = Long.parseLong(comment.get("cid").toString());
+			Comment toComment = iComrepDao.getParents(cid);
+			if(toComment!=null) {
+				long touid = toComment.getUid();
+				User toUser = iUserDao.get(touid);
+				comment.put("tousername", toUser.getUsername());
+			}else {
+				comment.put("tousername", null);
+			}
+
 		}
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("comments", comments);

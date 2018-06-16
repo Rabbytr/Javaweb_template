@@ -135,16 +135,22 @@ $(document).ready(function(){
         commentcontent.append($('<div>').addClass('comment-item').html('<span class="question-title">'+data.length+'条评论</span>'));
         for(var i=0;i<data.length;i++){
           var item = $('<div>').addClass('comment-item');
-          item.append($('<p>').html(data[i].username));
+          console.log(data[i].tousername);
+          if(data[i].tousername!=null){
+            item.append($('<p>').html(data[i].username+" <span class='small-gray'>回复</span> "+data[i].tousername));
+          }else{
+            item.append($('<p>').html(data[i].username));
+          }
           item.append($('<p>').addClass('comment-details').html(data[i].content).val(data[i].uid));
           item.append($('<p>').addClass('small-gray').html(data[i].date));
           // 回复表单
           var box = $('<div>').addClass('form-group').hide().appendTo(item);
           $('<textarea>').addClass('form-control').appendTo(box);
-          $('<button>').addClass('btn-blue reply-btn').html('回复').appendTo(box);
+          $('<button>').addClass('btn-blue reply-btn').html('回复').data({"cid":data[i].cid,"aid":data[i].aid}).appendTo(box);
           commentcontent.append(item);
         }
         $('.comment-details').click(replypop);
+        $('.reply-btn').click(replypublish);
       },
       complete: function() {
       },
@@ -199,6 +205,36 @@ $(document).ready(function(){
     });
   });
   // end发表评论
+
+  // 发表回复
+  function replypublish(){
+    var aid = $(this).data("aid");
+    var cid = $(this).data("cid");
+    var content = $(this).prev().val();
+    var commentbox = $(this).parent().parent().parent().parent();
+    var data = {"aid":aid,"content":content,"cid":cid};
+    console.log(data);
+    $.ajax({
+      url: "/Jweb_template/CommentPublish",
+      dataType: "text",
+      async: true,
+      data: data,
+      type: "POST",
+      success: function(data) {
+        if(data.trim()=='ok'){
+          getComment(commentbox,aid);
+          alert('回复成功');
+          input.val("");
+        }
+      },
+      complete: function() {
+      },
+      error: function() {
+      }
+    });
+
+  }
+  // end发表回复
 
   //注销
   function logout(){

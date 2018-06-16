@@ -9,5 +9,6 @@ public interface ICommentDao {
 	void save(Comment comment);
 	
 	long getLastCid();
+	Comment getByCid(long cid);
 	List<Map<String, Object>> getByAid(long aid);
 }
