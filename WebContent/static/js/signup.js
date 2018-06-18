@@ -60,6 +60,17 @@ $(document).ready(function(){
   });
   }
   $('#rigister-btn').click(rigister);
+  // 表单验证
+  $('#rigister-phonenumber').blur(function(){
+    var value = $(this).val();
+    if(!value.match(/\d{11}/)){
+    	$(this).css("border-bottom","1px solid #f00");  
+    	return;
+    }
+    $(this).css("border-bottom","1px solid #ebebeb");
+  });
+  // end表单验证
+  
   //登录和注册切换
   $('#login-link').click(function(){
     $('#rigister-container').hide(600);
