@@ -10,4 +10,6 @@ public interface IComrepDao {
 	
 	List<Map<String, Object>> getChildren(long cid);
 	Comment getParents(long cid);
+	
+	boolean hasChild(long cid);
 }

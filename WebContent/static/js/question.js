@@ -108,7 +108,7 @@ $(document).ready(function(){
 
   //绑定 提问 事件
   $('#putanswer').click(function(){
-    $('.modal-wrapper').css('display','flex');
+    $('#question-modal-wrapper').css('display','flex');
   });
   $('.modal-wrapper').click(function(e){
     var popup = $(".modal");
@@ -143,6 +143,12 @@ $(document).ready(function(){
           }
           item.append($('<p>').addClass('comment-details').html(data[i].content).val(data[i].uid));
           item.append($('<p>').addClass('small-gray').html(data[i].date));
+          if(data[i].hasreplies){
+            item.append($('<button>').addClass('btn btn-link showreply-btn').html('<span class="glyphicon glyphicon-leaf"></span> 查看对话').val(data[i].cid));
+          }else{
+            item.append($('<p>').addClass('showreply-btn').html('').val(data[i].cid));
+          }
+
           // 回复表单
           var box = $('<div>').addClass('form-group').hide().appendTo(item);
           $('<textarea>').addClass('form-control').appendTo(box);
@@ -151,6 +157,7 @@ $(document).ready(function(){
         }
         $('.comment-details').click(replypop);
         $('.reply-btn').click(replypublish);
+        $('.showreply-btn').click(showreply);
       },
       complete: function() {
       },
@@ -174,9 +181,44 @@ $(document).ready(function(){
   // 回复窗口
   function replypop(){
     var uid = $(this).val();
-    $(this).next().next().toggle(500);
+    $(this).next().next().next().toggle(500);
   }
   // end回复窗口
+
+  // 查看对话
+  function showreply(){
+    var cid = $(this).val();
+    $('#comment-modal-wrapper').css('display','flex');
+    data = {"cid":cid};
+    $.ajax({
+      url: "/Jweb_template/GetReplies",
+      dataType: "json",
+      async: true,
+      data: data,
+      type: "POST",
+      success: function(data) {
+        data = data.replies;
+        window.data = data;
+        var box = $('#comment-modal');
+        box.children().remove();
+        box.append($('<div>').addClass('modal-title').html(data.length+' 条回复'));
+        for(var i=0;i<data.length;i++){
+          var item = $('<div>').addClass('comment-item');
+
+          item.append($('<p>').html(data[i].username));
+          item.append($('<p>').html(data[i].content));
+          item.append($('<p>').addClass('small-gray').html(data[i].date));
+
+          box.append(item);
+        }
+      },
+      complete: function() {
+      },
+      error: function() {
+      }
+    });
+  }
+  // end查看对话
 
   // 发表评论
   $('.comment-publish').click(function(){

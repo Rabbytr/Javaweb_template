@@ -45,7 +45,7 @@ background-color: #fff;
   text-align: center;
   cursor: pointer;
   background: none;
-  border: 2px solid;
+  border: 1px solid;
   border-radius: 4px;
 }
 .btn-stared{
@@ -58,9 +58,23 @@ background-color: #fff;
   text-align: center;
   cursor: pointer;
   /* background: none; */
-  border: 2px solid;
+  border: 1px solid;
   border-radius: 4px;
   transition: background 0.3s linear;
+}
+.btn-link{
+	color: #8590a6;
+}
+.btn:hover,
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+    text-decoration: none;
+    color: #8590a6;
 }
 
 .card{

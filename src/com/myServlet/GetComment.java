@@ -58,7 +58,11 @@ public class GetComment extends HttpServlet {
 			}else {
 				comment.put("tousername", null);
 			}
-
+			if(iComrepDao.hasChild(cid)) {
+				comment.put("hasreplies", true);
+			}else {
+				comment.put("hasreplies", false);
+			}
 		}
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("comments", comments);

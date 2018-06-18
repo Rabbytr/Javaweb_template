@@ -140,9 +140,9 @@
 			}
 		%>
 
-		<!-- 弹出框 -->
-		<div class="modal-wrapper">
-			<div class="modal">
+		<!-- 提问弹出框 -->
+		<div id="question-modal-wrapper" class="modal-wrapper">
+			<div id="question-modal" class="modal">
 				<div class="modal-title">写下你的回答</div>
 				<div class="modal-subtitle">描述有理的回答对提问者更有帮助</div>
 				<div class="modal-form">
@@ -156,6 +156,13 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<%-- 回复弹出框 --%>
+		<div id="comment-modal-wrapper" class="modal-wrapper">
+			<div id="comment-modal" class="modal">
+				<div class="modal-title">所有回复</div>
+				<div class="modal-subtitle">描述有理的回答对提问者更有帮助</div>
 		</div>
 	</div>
 </body>

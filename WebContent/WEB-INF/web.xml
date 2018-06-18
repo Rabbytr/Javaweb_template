@@ -19,6 +19,6 @@
     <url-pattern>/Question/*</url-pattern>
   </servlet-mapping>
   <session-config>
-    <session-timeout>5</session-timeout>
+    <session-timeout>50</session-timeout>
   </session-config>
 </web-app>
