@@ -30,10 +30,8 @@ public class GetUserInfo extends HttpServlet {
 		}else {
 			try {
 				long uid = (long) request.getSession().getAttribute("uid");
-				System.out.println(uid);
 				IUserDao iUserDao = new UserDaoImpl();
 				User user = iUserDao.get(uid);
-				System.out.println(user.getUsername());
 				response.getWriter().print("{\"state\":\"ok\",\"username\":\""+user.getUsername()+"\"}");
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -23,7 +23,6 @@ public class QuestionDaoImpl implements IQuestionDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -67,6 +66,18 @@ public class QuestionDaoImpl implements IQuestionDao{
 		String sql = "select * from question order by date desc limit 10";
 		try {
 			List<Map<String, Object>> r = qr.query(sql,new MapListHandler());
+			return r;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> searchBy(String keyword) {
+		String sql = "select * from question where title like ? or content like ?";
+		try {
+			List<Map<String, Object>> r = qr.query(sql,new MapListHandler(),"%"+keyword+"%","%"+keyword+"%");
 			return r;
 		} catch (SQLException e) {
 			e.printStackTrace();

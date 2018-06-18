@@ -27,11 +27,12 @@ $(document).ready(function(){
 
   // 获取 问题信息
   function getIndexInfo(){
+    var data = {"type":"topten"};
     $.ajax({
       url: "/Jweb_template/GetQuestions",    //请求的url地址
       dataType: "json",   //返回格式为json
       async: false, //请求是否异步
-      data: null,    //参数值
+      data: data,    //参数值
       type: "POST",   //请求方式
       success: function(data) {
         data = data.questions;
@@ -65,7 +66,58 @@ $(document).ready(function(){
       }
     });
   }
+  function search(){
+	    var keywords = $('#keyword-input').val();
+	    var data = {"type":"search","keywords":keywords};
+	    $.ajax({
+	      url: "/Jweb_template/GetQuestions",    //请求的url地址
+	      dataType: "json",   //返回格式为json
+	      async: false, //请求是否异步
+	      data: data,    //参数值
+	      type: "POST",   //请求方式
+	      success: function(data) {
+          $('#question-container').children().remove();
+	        data = data.questions;
+	        window.data = data;
+          if(data.length==0){
+            $('#question-container').append($('<p>').html('没有你要的结果'));
+          }
+	        for(var i=0;i<data.length;i++){
+	          var t = data[i];
+	          var card = $('<div>').addClass('card');
+	          if(t.answer!=null){
+	            card.append($('<p>').addClass('question-title').html(t.title).val(t.qid));
+	            card.append($('<p>').addClass('small-gray').html(t.answer.stars+"人赞同了该回答"));
+	            card.append($('<p>').addClass('most-anwser').html(t.answer.content));
+	            card.append($('<p>').addClass('small-gray').html(t.answer.date));
+	            var foot = $('<div>').addClass('question-foot');
+	            if(!t.answer.stared)
+	            foot.append($('<button>').addClass('btn-star').html('<span class="glyphicon glyphicon-triangle-top"></span> '+t.answer.stars).val(t.answer.aid));
+	            else foot.append($('<button>').addClass('btn-stared').html('<span class="glyphicon glyphicon-triangle-bottom"></span> '+t.answer.stars).val(t.answer.aid));
+	            foot.append($('<button>').addClass('btn btn-link comment-btn').html('<span class="glyphicon glyphicon-comment"></span> 添加评论').val(t.qid));
+	            foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-send"></span> 分享'));
+	            foot.append($('<button>').addClass('btn btn-link').html('<span class="glyphicon glyphicon-star"></span> 收藏'));
+	            card.append(foot);
+	          }else{
+	            card.append($('<p>').addClass('question-title').html(t.title).val(t.qid));
+	            card.append($('<p>').addClass('most-anwser').html("目前还没有回答"));
+	          }
+	          $('#question-container').append(card);
+	        }
+	      },
+	      complete: function() {
+	      },
+	      error: function() {
+	      }
+	    });
+      $('.question-title').click(questionclick);
+        $('.comment-btn').click(questionclick);
+	  }
   // end 获取问题信息
+
+  // 搜索
+  $('#search-btn').click(search);
+  // end搜索
 
   // 问题点击事件
   function questionclick(){
@@ -123,13 +175,13 @@ $(document).ready(function(){
   // end点赞事件
 
   // 问题区初始化
-  function init(){
+  function init(type){
 	  $('#question-container').children().remove();
-      getIndexInfo();
+		getIndexInfo('topten');
 	  $('.btn-star').click(star);
 	  $('.btn-stared').click(unstar);
 	  $('.question-title').click(questionclick);
-    $('.comment-btn').click(questionclick);
+      $('.comment-btn').click(questionclick);
   }
   init();
   // end问题区初始化
