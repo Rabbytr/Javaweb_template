@@ -8,6 +8,7 @@ $(document).ready(function(){
       async: false, //请求是否异步
       data: null,    //参数值
       type: "POST",   //请求方式
+      timeout: 5000,
       success: function(data) {
         //请求成功时处理
         window.data = data;
@@ -20,6 +21,7 @@ $(document).ready(function(){
       complete: function() {
       },
       error: function() {
+        alert('请求服务器失败');
       }
     });
   }
@@ -34,6 +36,7 @@ $(document).ready(function(){
       async: false, //请求是否异步
       data: data,    //参数值
       type: "POST",   //请求方式
+      timeout: 5000,
       success: function(data) {
         data = data.questions;
         window.data = data;
@@ -63,11 +66,16 @@ $(document).ready(function(){
       complete: function() {
       },
       error: function() {
+        alert('请求服务器失败');
       }
     });
   }
   function search(){
 	    var keywords = $('#keyword-input').val();
+      if(keywords==''){
+        alert('搜索内容不能为空');
+        return;
+      }
 	    var data = {"type":"search","keywords":keywords};
 	    $.ajax({
 	      url: "/Jweb_template/GetQuestions",    //请求的url地址
@@ -75,6 +83,7 @@ $(document).ready(function(){
 	      async: false, //请求是否异步
 	      data: data,    //参数值
 	      type: "POST",   //请求方式
+        timeout: 5000,
 	      success: function(data) {
           $('#question-container').children().remove();
 	        data = data.questions;
@@ -108,6 +117,7 @@ $(document).ready(function(){
 	      complete: function() {
 	      },
 	      error: function() {
+          alert('请求服务器失败');
 	      }
 	    });
       $('.question-title').click(questionclick);
@@ -129,7 +139,6 @@ $(document).ready(function(){
   // 点赞事件
   function star(){
     var aid = $(this).val();
-    console.log(aid);
     data = {"aid":aid,"flag":false};
     $.ajax({
       url: "/Jweb_template/Starfun",    //请求的url地址
@@ -137,6 +146,7 @@ $(document).ready(function(){
       async: true, //请求是否异步
       data: data,    //参数值
       type: "POST",   //请求方式
+      timeout: 5000,
       success: function(data) {
         if(data.state.trim()=='ok'){
           init();
@@ -147,6 +157,7 @@ $(document).ready(function(){
       complete: function() {
       },
       error: function() {
+        alert('请求服务器失败');
       }
     });
   }
@@ -159,6 +170,7 @@ $(document).ready(function(){
       async: true, //请求是否异步
       data: data,    //参数值
       type: "POST",   //请求方式
+      timeout: 5000,
       success: function(data) {
         if(data.state.trim()=='ok'){
           init();
@@ -169,6 +181,7 @@ $(document).ready(function(){
       complete: function() {
       },
       error: function() {
+          alert('请求服务器失败');
       }
     });
   }
@@ -190,7 +203,15 @@ $(document).ready(function(){
   function questionpublish(){
     islogin();
     var title = $('#question-title').val();
+    if(title==''){
+      alert('问题标题不能为空');
+      return;
+    }
     var content = $('#question-content').val();
+    if(content==''){
+      alert('问题描述不能为空');
+      return;
+    }
     data = {"title":title,"content":content};
     $.ajax({
       url: "/Jweb_template/QuestionPublish",    //请求的url地址
@@ -198,6 +219,7 @@ $(document).ready(function(){
       async: true, //请求是否异步
       data: data,    //参数值
       type: "POST",   //请求方式
+      timeout: 5000,
       success: function(data) {
         if(data.trim()=='ok'){
           $('.modal-wrapper').hide();
@@ -210,6 +232,7 @@ $(document).ready(function(){
       complete: function() {
       },
       error: function() {
+        alert('请求服务器失败');
       }
     });
   }
@@ -227,6 +250,34 @@ $(document).ready(function(){
     }
   });
   // end 提问 事件
+
+  // 特效
+  $('body').mousedown(function(event){
+    texts = ['富强','民主','文明','和谐','自由','平等',
+    '公正','法治','爱国','敬业','诚信','友善']
+    x = event.clientX;
+    y = event.clientY;
+    ind = Math.floor(texts.length*Math.random());
+    color = "#"+Math.round(Math.random()*(1<<22));
+    var showtext = $('<span>').html(texts[ind]);
+    showtext.css({
+      "top":(y-20),
+      "left":(x+10),
+      "position":"absolute",
+      "color":color,
+      "font-weight":"bold",
+      "font-size":"20px",
+      "cursor":"pointer"
+    });
+    $(this).append(showtext);
+    showtext.animate(
+      {"top": y - 180,"opacity": 0},
+      1000,
+      function(){
+        this.remove();
+      });
+    });
+  // end特效
 
   //注销
   function logout(){

@@ -32,14 +32,24 @@
 </head>
 <body>
 	<%
-		long guid = (long)t;
+		long guid = (long) t;
 		long qid = Long.parseLong(request.getPathInfo().toString().substring(1));
 		request.getSession().setAttribute("qid", qid);
 		IQuestionDao iQuestionDao = new QuestionDaoImpl();
 		IAnswerDao iAnswerDao = new AnswerDaoImpl();
 		IStarmapDao iStarmapDao = new StarmapDaoImpl();
-		Map<String, Object> question = iQuestionDao.getByQid(qid);
-		List<Map<String, Object>> answers = iAnswerDao.getAllByQid(qid);
+		Map<String, Object> question;
+		List<Map<String, Object>> answers;
+		try {
+			question = iQuestionDao.getByQid(qid);
+			answers = iAnswerDao.getAllByQid(qid);
+			if (question == null || answers == null)
+				response.sendRedirect("../signup.html");
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("../signup.html");
+			return;
+		}
 	%>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -164,6 +174,7 @@
 				<div class="modal-title">所有回复</div>
 				<div class="modal-subtitle">描述有理的回答对提问者更有帮助</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

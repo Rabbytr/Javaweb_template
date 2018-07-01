@@ -56,7 +56,6 @@ public class GetQuestions extends HttpServlet {
 			
 			r = iQuestionDao.getTopTen();
 		}else {
-			System.out.println("normal");
 			r = iQuestionDao.getTopTen();
 		}
 		for(Map<String, Object> map:r) {

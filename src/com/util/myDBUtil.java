@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import org.apache.commons.dbutils.QueryRunner;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.jdbc.dao.IStarmapDao;
 
 public class myDBUtil {
 	private static DataSource ds = null;
@@ -26,6 +27,7 @@ public class myDBUtil {
 			qr = new QueryRunner(ds);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("数据库连接异常");
 		}
 	}
 	

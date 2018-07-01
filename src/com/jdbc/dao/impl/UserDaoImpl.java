@@ -67,4 +67,17 @@ public class UserDaoImpl implements IUserDao{
 		return null;
 	}
 
+	@Override
+	public boolean hasUser(String phonenum) {
+		String sql = "select * from user where phonenumber = ?";
+		try {
+			User user = qr.query(sql,new BeanHandler<User>(User.class),phonenum);
+			if(user!=null)return true;
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

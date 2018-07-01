@@ -28,6 +28,10 @@ $(document).ready(function(){
   $('#answer-publish').click(function(){
     islogin();
     var content = $('#answer-content').val();
+    if(content==''){
+      alert('输入内容不能为空');
+      return;
+    }
     data = {"content":content};
     $.ajax({
       url: "/Jweb_template/AnswerPublish",
@@ -226,6 +230,10 @@ $(document).ready(function(){
     var input = $(this).prev().children();
     var commentbox = $(this).parent().parent();
     var content = input.val();
+    if(content==''){
+      alert('输入内容不能为空');
+      return;
+    }
     var data = {"aid":aid,"content":content,"cid":null};
     $.ajax({
       url: "/Jweb_template/CommentPublish",
@@ -253,6 +261,10 @@ $(document).ready(function(){
     var aid = $(this).data("aid");
     var cid = $(this).data("cid");
     var content = $(this).prev().val();
+    if(content==''){
+      alert('输入内容不能为空');
+      return;
+    }
     var commentbox = $(this).parent().parent().parent().parent();
     var data = {"aid":aid,"content":content,"cid":cid};
     console.log(data);
@@ -277,6 +289,34 @@ $(document).ready(function(){
 
   }
   // end发表回复
+
+  // 特效
+  $('body').mousedown(function(event){
+    texts = ['富强','民主','文明','和谐','自由','平等',
+    '公正','法治','爱国','敬业','诚信','友善']
+    x = event.clientX;
+    y = event.clientY;
+    ind = Math.floor(texts.length*Math.random());
+    color = "#"+Math.round(Math.random()*(1<<22));
+    var showtext = $('<span>').html(texts[ind]);
+    showtext.css({
+      "top":(y-20),
+      "left":(x+10),
+      "position":"absolute",
+      "color":color,
+      "font-weight":"bold",
+      "font-size":"20px",
+      "cursor":"pointer"
+    });
+    $(this).append(showtext);
+    showtext.animate(
+      {"top": y - 180,"opacity": 0},
+      1000,
+      function(){
+        this.remove();
+      });
+    });
+  // end特效
 
   //注销
   function logout(){

@@ -11,6 +11,7 @@ $(document).ready(function(){
       async: true, //请求是否异步，默认为异步，这也是ajax重要特性
       data: data,    //参数值
       type: "POST",   //请求方式
+      timeout: 5000,
       success: function(data) {
         //请求成功时处理
         console.log(data);
@@ -25,7 +26,7 @@ $(document).ready(function(){
         //请求完成的处理
       },
       error: function() {
-        //请求出错处理
+        alert('请求服务器失败');
       }
     });
   }
@@ -43,21 +44,22 @@ $(document).ready(function(){
       async: true, //请求是否异步，默认为异步，这也是ajax重要特性
       data: data,    //参数值
       type: "POST",   //请求方式
+      timeout: 5000,
       success: function(data) {
         //请求成功时处理
         console.log(data);
         if(data.trim()=='ok'){
           alert('注册成功');
+          $('#login-link').click();
         }else {
           alert('注册失败');
         }
-        $('#login-link').click();
       },
       complete: function() {
         //请求完成的处理
       },
       error: function() {
-        //请求出错处理
+        alert('请求服务器失败');
       }
     });
   }
@@ -123,7 +125,7 @@ $(document).ready(function(){
     var loginflag1 = false;
     var loginflag2 = false;
     if(validation($('#login-phonenumber'),/\d{11}/))loginflag1 = true;
-    if(validation($('#rigister-password'),/^[a-z0-9_-]{6,18}$/))loginflag2 = true;
+    if(validation($('#login-password'),/^[a-z0-9_-]{6,18}$/))loginflag2 = true;
     if(loginflag1&&loginflag2)return true;
     alert('请检查数据输入是否规范');
     return false;

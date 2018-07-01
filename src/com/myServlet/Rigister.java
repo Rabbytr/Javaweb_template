@@ -31,8 +31,14 @@ public class Rigister extends HttpServlet {
 		user.setPassword(SHAencrypt.getResult(pwd)); //加密
 		user.setUsername(username);
 		IUserDao iUserDao = new UserDaoImpl();
-		iUserDao.save(user);
-		response.getWriter().print("ok");
+		if(!iUserDao.hasUser(phonenum)) {
+			System.out.println(iUserDao.hasUser(phonenum));
+			iUserDao.save(user);
+			response.getWriter().print("ok");
+		}else {
+			response.getWriter().print("no");
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

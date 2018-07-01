@@ -11,5 +11,6 @@ public interface IUserDao {
 	
 	User get(long id);
 	int getId(String phonenum,String password);
+	boolean hasUser(String phonenum);
 	List<User> getAll(); 
 }
