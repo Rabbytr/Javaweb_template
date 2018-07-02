@@ -36,6 +36,32 @@ background-color: #fff;
   border: 1px solid;
   border-radius: 4px;
 }
+.btn-red{
+  display: inline-block;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 32px;
+  background-color: #ee3f4d;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  /* background: none; */
+  border: 1px solid;
+  border-radius: 4px;
+  transition: background 0.3s linear;
+}
+.btn-red:hover{
+  display: inline-block;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 32px;
+  color: #ee3f4d;
+  text-align: center;
+  cursor: pointer;
+  background: none;
+  border: 1px solid;
+  border-radius: 4px;
+}
 .btn-star{
   display: inline-block;
   padding: 0 16px;

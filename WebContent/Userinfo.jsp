@@ -1,16 +1,36 @@
-<!DOCTYPE html>
+<%
+	//判断是否登录
+	Object t = request.getSession().getAttribute("uid");
+	if (t == null) {
+		response.sendRedirect("../signup.html");
+		return;
+	}
+%>
+<%@page import="com.jdbc.dao.*"%>
+<%@page import="com.jdbc.dao.impl.*"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script type="text/javascript" src='./static/js/jquery.js'></script>
 	<script type="text/javascript" src='./static/js/bootstrap.min.js'></script>
-	<script type="text/javascript" src='./static/js/index.js'></script>
+	<script type="text/javascript" src='./static/js/userinfo.js'></script>
+	<script>
+	  // 问题点击事件
+	  function questionclick(qid){
+	    location.href = "Question/"+qid;
+	    //console.log(qid);
+	  }
+	  // end 问题点击事件
+	</script>
 
 	<link type="text/css" rel="stylesheet" href="./static/css/bootstrap.min.css" />
 	<link type="text/css" rel="stylesheet" href="./static/css/index.css" />
-	<title>逼乎-发现更大的世界</title>
+<title>个人主页</title>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -58,84 +78,64 @@
 			</div>
 		</div><!-- /.container-fluid -->
 	</nav>
-	<!-- 正文区域 -->
+	<%
+		long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
+		IQuestionDao iQuestionDao = new QuestionDaoImpl();
+		IAnswerDao iAnswerDao = new AnswerDaoImpl();
+		List<Map<String, Object>> questions;
+		List<Map<String, Object>> answers;
+		questions = iQuestionDao.getByUid(uid);
+		answers = iAnswerDao.getAllByUid(uid);
+	%>
 	<div class="container">
-		<div id="question-container" class="col-md-8">
-
-			<!-- 一张卡片 start -->
-			<!-- <div class="card">
-				<p class="question-title">怎么用英文讲述中国故事？</p>
-				<p class="most-anwser">首赞回答</p>
-				<div class="question-foot">
-					<button class="btn-star" name="button">赞 32</button>
-					<button class="btn btn-link" name="button">添加评论</button>
-					<button class="btn btn-link" name="button">分享</button>
-					<button class="btn btn-link" name="button">收藏</button>
-				</div>
-
-				<div class="comment-container">
-					<div class="comment-item">
-						评论区
-					</div>
-					<div class="comment-item">
-						评论区
-					</div>
-
-					<div class="comment-footer">
-						<div class="form-group">
-							<textarea id="comment" class="form-control" rows="3" placeholder="写下你的评论"></textarea>
-						</div>
-						<button type="submit" class="btn-blue">评论</button>
-					</div>
-
-				</div>
-			</div> -->
-			<!-- 一张卡片 end -->
-
-
+		<h1>我的问题</h1>
+		<%
+			for(Map<String, Object> question:questions){
+		%>
+		<div class="card" >
+			<p class="question-title" onclick="questionclick(<%=question.get("qid")%>)"><%=question.get("title")%></p>
+			<p class="question-content"><%=question.get("content")%></p>
+			<p class="small-gray"><%=question.get("date")%></p>
+			<button class="btn-red question-delete" value=<%=question.get("qid")%>>删除</button>
 		</div>
-		<div id="info-container" class="col-md-4">
-			<div class="card">
-				<button id="putquestion" class="btn btn-link" type="button" name="button">提问</button>
-			</div>
-			<div class="card">
-				<button id="putquestion" class="btn btn-link" type="button" name="button">回答</button>
-			</div>
-			<div class="card">
-				<p>刘看山·逼乎指南·知乎协议·隐私政策</p>
-				<p>应用工作·申请开通逼乎机构号</p>
-				<p>侵权举报网上有害信息举报专区</p>
-				<p>违法和不良信息举报：010-82716601</p>
-				<p>儿童色情信息举报专区</p>
-				<p>联系我们 © 2018 逼乎</p>
-			</div>
+		<%
+			}
+		%>
+		<h1>我的回答</h1>
+		<%
+			for(Map<String, Object> answer:answers){
+				long qid = Long.parseLong(answer.get("qid").toString());
+				Map<String, Object> question = iQuestionDao.getByQid(qid);
+		%>
+		<div class="card">
+			<p class="question-title" onclick="questionclick(<%=question.get("qid")%>)"><%=question.get("title")%></p>
+			<p class="question-content"><%=answer.get("content")%></p>
+			<button class="btn-blue answer-modify" value=<%=answer.get("aid")%>>修改</button>
+			<button class="btn-red answer-delete" value=<%=answer.get("aid")%>>删除</button>
 		</div>
-
-	  <!-- 弹出框 -->
+		<%
+			}
+		%>
+		
+			  <!-- 弹出框 -->
 		<div class="modal-wrapper">
 			<div class="modal">
 				<div class="modal-title">
-					写下你的问题
+					修改此回答
 				</div>
 				<div class="modal-subtitle">
 					描述精确的问题更易得到解答
 				</div>
 				<div class="modal-form">
 					<div class="form-wrapper">
-						<textarea id="question-title" class="form-control" rows="2" placeholder="问题标题"></textarea>
-					</div>
-					<div class="form-wrapper">
 						<textarea id="question-content" class="form-control" rows="6" placeholder="问题描述"></textarea>
 					</div>
 					<div class="form-wrapper">
-						<button id="question-publish" class="btn-blue" type="button" name="button">提交问题</button>
-
+						<button id="question-publish" class="btn-blue" type="button" name="button">提交修改</button>
 					</div>
-
 				</div>
 			</div>
 		</div>
-
 	</div>
 </body>
 </html>

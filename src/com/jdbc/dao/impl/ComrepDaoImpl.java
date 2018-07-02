@@ -12,7 +12,6 @@ import com.jdbc.dao.ICommentDao;
 import com.jdbc.dao.IComrepDao;
 import com.jdbc.dao.IUserDao;
 import com.jdbc.domain.Comment;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.util.myDBUtil;
 
 public class ComrepDaoImpl implements IComrepDao{
@@ -22,6 +21,16 @@ public class ComrepDaoImpl implements IComrepDao{
 		String sql = "insert into comrep values(?,?)";
 		try {
 			qr.update(sql,parent,child);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void delete(long cid) {
+		String sql = "delete from comrep where child = ? or parent = ?";
+		try {
+			qr.update(sql,cid,cid);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

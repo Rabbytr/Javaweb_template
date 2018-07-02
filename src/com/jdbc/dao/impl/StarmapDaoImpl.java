@@ -11,6 +11,16 @@ import com.util.myDBUtil;
 
 public class StarmapDaoImpl implements IStarmapDao{
 	private QueryRunner qr = myDBUtil.getQueryRunner();
+	
+	@Override
+	public void delete(long aid) {
+		String sql = "delete from starmap where aid = ?";
+		try {
+			qr.update(sql,aid);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public int star(long uid, long aid) {

@@ -88,7 +88,7 @@
 								class="caret"></span>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="#"><span class="glyphicon glyphicon-user"></span>  我的主页</a></li>
+								<li><a id="userinfo" href="#"><span class="glyphicon glyphicon-user"></span>  我的主页</a></li>
 								<li><a href="#"><span class="glyphicon glyphicon-cog"></span>  设置</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a id="logout" href="#"><span class="glyphicon glyphicon-off"></span>  注销</a></li>

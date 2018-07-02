@@ -7,6 +7,7 @@ import com.jdbc.domain.Comment;
 
 public interface ICommentDao {
 	void save(Comment comment);
+	void delete(long cid);
 	
 	long getLastCid();
 	Comment getByCid(long cid);

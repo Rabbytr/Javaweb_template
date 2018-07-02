@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import com.jdbc.dao.ICommentDao;
+import com.jdbc.dao.IComrepDao;
 import com.jdbc.domain.Comment;
 import com.util.myDBUtil;
 
@@ -21,6 +22,18 @@ public class CommentDaoImpl implements ICommentDao {
 		String sql = "insert into comment(aid,uid,content,date) values(?,?,?,?)";
 		try {
 			qr.update(sql,comment.getAid(),comment.getUid(),comment.getContent(),comment.getDate());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void delete(long cid) {
+		IComrepDao iComrepDao = new ComrepDaoImpl();
+		iComrepDao.delete(cid);
+		String sql = "delete from comment where cid = ?";
+		try {
+			qr.update(sql,cid);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

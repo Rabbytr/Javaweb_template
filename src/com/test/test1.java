@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.jdbc.dao.IAnswerDao;
 import com.jdbc.dao.ICommentDao;
 import com.jdbc.dao.IComrepDao;
 import com.jdbc.dao.IQuestionDao;
+import com.jdbc.dao.impl.AnswerDaoImpl;
 import com.jdbc.dao.impl.CommentDaoImpl;
 import com.jdbc.dao.impl.ComrepDaoImpl;
 import com.jdbc.dao.impl.QuestionDaoImpl;
@@ -17,9 +19,8 @@ public class test1 {
 
 	public static void main(String[] args) {
 		
-		IQuestionDao iQuestionDao = new QuestionDaoImpl();
-		List<Map<String, Object>> rList = iQuestionDao.searchBy("我");
-		System.out.println(rList);
+		IAnswerDao iAnswerDao =  new AnswerDaoImpl();
+		iAnswerDao.delete(8);
 		
 //		Question question = new Question();
 //		question.setUid(123);

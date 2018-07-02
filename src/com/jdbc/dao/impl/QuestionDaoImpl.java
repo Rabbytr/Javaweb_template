@@ -8,6 +8,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
+import com.jdbc.dao.IAnswerDao;
 import com.jdbc.dao.IQuestionDao;
 import com.jdbc.domain.Question;
 import com.util.myDBUtil;
@@ -33,8 +34,17 @@ public class QuestionDaoImpl implements IQuestionDao{
 
 	@Override
 	public void delete(long qid) {
-		// TODO Auto-generated method stub
-		
+		IAnswerDao iAnswerDao = new AnswerDaoImpl();
+		String sql = "delete from question where qid = ?";
+		try {
+			qr.update(sql,qid);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		List<Map<String, Object>> answers = iAnswerDao.getAllByQid(qid);
+		for(Map<String, Object> answer:answers) {
+			iAnswerDao.delete(Long.parseLong(answer.get("aid").toString()));
+		}
 	}
 	
 	@Override

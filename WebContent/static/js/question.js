@@ -324,4 +324,9 @@ $(document).ready(function(){
     location.href = "../signup.html";
   }
   $('#logout').click(logout);
+  // 个人主页
+  function userinfo(){
+	  location.href = "../Userinfo.jsp";
+	  }
+	  $('#userinfo').click(userinfo);
 });
